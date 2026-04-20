@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.mymovies"
+       name="MyMovies"
+       version="4.1.4"
+       provider-name="LeoSystems">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="kodi.context.item">
+    <menu id="kodi.core.main">
+      <item library="context.py">
+        <label>Add to MyMovies</label>
+        <visible>!IsEmpty(ListItem.Title) + !IsEmpty(ListItem.Art(thumb))</visible>
+      </item>
+    </menu>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en_US">MyMovies – Your personal movie collection with categories, favorites, and backup function</summary>
+    <description lang="en_US">MyMovies allows you to import entries from Kodi favorites, organize them into custom categories, and mark your favorite movies as "Great Movies." It offers a context menu to add movies directly from other addons, a search function to find movies in the xShip addon, and a backup feature to save and restore your collection.</description>
+    <language>en</language>
+    <license></license>
+    <website></website>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

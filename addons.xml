@@ -1,0 +1,217 @@
+<addons>
+
+  <!-- plugin.video.global_lastship_search | Quelle: plugin.video.global_lastship_search -->
+  <addon id="plugin.video.global_lastship_search"
+         name="Globale Lastship Suche"
+         version="1.0.2"
+         provider-name="LeoSystems">
+  
+    <requires>
+      <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+  
+    <extension point="kodi.context.item">
+      <menu id="kodi.core.main">
+  
+        <item library="context_movie.py">
+          <label>Film suchen</label>
+          <visible>!IsEmpty(ListItem.Title)</visible>
+        </item>
+  
+        <item library="context_tvshow.py">
+          <label>Serie suchen</label>
+          <visible>!IsEmpty(ListItem.Title)</visible>
+        </item>
+  
+      </menu>
+    </extension>
+  
+    <extension point="xbmc.addon.metadata">
+      <platform>all</platform>
+      <summary lang="de_DE">Globale Lastship Reborn Suche für Filme und Serien</summary>
+      <description lang="de_DE">
+        Fügt zwei globale Kontextmenüeinträge hinzu, um den ausgewählten Titel in Lastship Reborn zu suchen:
+        „Film suchen“ oder „Serie suchen“.
+      </description>
+      <language>de</language>
+      <assets>
+        <icon>icon.png</icon>
+      </assets>
+    </extension>
+  
+  </addon>
+
+  <!-- plugin.video.mymovies | Quelle: plugin.video.mymovies -->
+  <addon id="plugin.video.mymovies"
+         name="MyMovies"
+         version="4.1.4"
+         provider-name="LeoSystems">
+    <requires>
+      <import addon="xbmc.python" version="3.0.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+      <provides>video</provides>
+    </extension>
+    <extension point="kodi.context.item">
+      <menu id="kodi.core.main">
+        <item library="context.py">
+          <label>Add to MyMovies</label>
+          <visible>!IsEmpty(ListItem.Title) + !IsEmpty(ListItem.Art(thumb))</visible>
+        </item>
+      </menu>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+      <platform>all</platform>
+      <summary lang="en_US">MyMovies – Your personal movie collection with categories, favorites, and backup function</summary>
+      <description lang="en_US">MyMovies allows you to import entries from Kodi favorites, organize them into custom categories, and mark your favorite movies as "Great Movies." It offers a context menu to add movies directly from other addons, a search function to find movies in the xShip addon, and a backup feature to save and restore your collection.</description>
+      <language>en</language>
+      <license></license>
+      <website></website>
+      <assets>
+        <icon>icon.png</icon>
+      </assets>
+    </extension>
+  </addon>
+
+  <!-- repository.bingie | Quelle: repository.bingie -->
+  <addon id="repository.bingie" name="Bingie Repository" provider-name="matke" version="1.0.0">
+  	<extension point="xbmc.addon.repository" name="Bingie Repository">
+  		<requires>
+  			<import addon="xbmc.addon" version="12.0.0"/>
+  		</requires>
+  		<dir minversion="20.9.1">
+  			<info compressed="false">https://raw.githubusercontent.com/matke-84/repository.bingie/main/omega/addons.xml</info>
+  			<checksum>https://raw.githubusercontent.com/matke-84/repository.bingie/main/omega/addons.xml.md5</checksum>
+  			<datadir zip="true">https://raw.githubusercontent.com/matke-84/repository.bingie/main/omega/</datadir>
+  		</dir>
+  	</extension>
+  	<extension point="xbmc.addon.metadata">
+  		<summary lang="en">Bingie Repository</summary>
+          <description lang="en">A repository for Bingie skin.</description>
+          <disclaimer></disclaimer>
+          <platform>all</platform>
+          <assets>
+              <icon>icon.png</icon>
+              <fanart>fanart.jpg</fanart>
+          </assets>
+  	</extension>
+  </addon>
+
+  <!-- repository.kodi.media | Quelle: repository.kodi.media -->
+  <addon id="repository.kodi.media" name="Kodi Media Repository" version="1.0.0" provider-name="mr-evil1">
+      <extension point="xbmc.addon.repository">
+          <dir>
+              <info>https://mr-evil1.github.io/kodi-media-repo/addons.xml</info>
+              <checksum>https://mr-evil1.github.io/kodi-media-repo/addons.xml.md5</checksum>
+              <datadir zip="true">https://mr-evil1.github.io/kodi-media-repo/</datadir>
+          </dir>
+      </extension>
+      <extension point="xbmc.addon.metadata">
+          <summary>Kodi Media Repository</summary>
+          <description>Repository von Kodi Media Addons und Abhängigkeiten.</description>
+          <platform>all</platform>
+          <assets>
+              <icon>kodi-media.jpg</icon>
+              <fanart>kodi-media.jpg</fanart>
+          </assets>
+      </extension>
+  </addon>
+
+  <!-- repository.leosystems | Quelle: repository.leosystems -->
+  <addon id="repository.leosystems"
+         name="LeoSystems Repo"
+         version="1.0.0"
+         provider-name="LeoSystems">
+  
+    <extension point="xbmc.addon.repository">
+      <dir>
+        <info compressed="false">https://raw.githubusercontent.com/leobitchy/leosystems-repo/main/addons.xml</info>
+        <checksum>https://raw.githubusercontent.com/leobitchy/leosystems-repo/main/addons.xml.md5</checksum>
+        <datadir zip="true">https://raw.githubusercontent.com/leobitchy/leosystems-repo/main/</datadir>
+      </dir>
+    </extension>
+  
+    <extension point="xbmc.addon.metadata">
+      <summary>LeoSystems Kodi Repository</summary>
+      <description>LeoSystems Addons erleichtern dir Film &amp; Seriensuche in Kodi</description>
+      <platform>all</platform>
+      <assets>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+      </assets>
+    </extension>
+  
+  </addon>
+
+  <!-- repository.michaz | Quelle: repository.michaz -->
+  <addon id="repository.michaz" name="Michaz Repository" provider-name="Michaz" version="5.0">
+  	<extension point="xbmc.addon.repository" name="Michaz Repository">
+  		<dir>
+  			<info compressed="false">https://michaz1988.github.io/repo/addons.xml</info>
+  			<checksum>https://michaz1988.github.io/repo/addons.xml.md5</checksum>
+  			<datadir zip="true">https://michaz1988.github.io/repo/</datadir>
+  		</dir>
+  			<dir minversion="19.0.0" maxversion="19.9.0">
+  			<info compressed="false">https://raw.github.com/kaffepausse71/SKINBASE19/master/addons.xml</info>
+  			<checksum>https://raw.github.com/kaffepausse71/SKINBASE19/master/addons.xml.md5</checksum>
+  			<datadir zip="true">https://raw.github.com/kaffepausse71/SKINBASE19/master/</datadir>
+  		</dir>
+  		<dir minversion="20.0.0" maxversion="20.9.0">
+  			<info compressed="false">https://raw.github.com/kaffepausse71/SKINBASE.NEXUS/master/addons.xml</info>
+  			<checksum>https://raw.github.com/kaffepausse71/SKINBASE.NEXUS/master/addons.xml.md5</checksum>
+  			<datadir zip="true">https://raw.github.com/kaffepausse71/SKINBASE.NEXUS/master/</datadir>
+  		</dir>
+  		<dir minversion="21.0.0" maxversion="21.9.0">
+  			<info compressed="false">https://raw.github.com/kaffepausse71/SKINBASE.OMEGA/master/addons.xml</info>
+  			<checksum>https://raw.github.com/kaffepausse71/SKINBASE.OMEGA/master/addons.xml.md5</checksum>
+  			<datadir zip="true">https://raw.github.com/kaffepausse71/SKINBASE.OMEGA/master/</datadir>
+  		</dir>
+  		<dir minversion="22.0.0" maxversion="22.9.0">
+  			<info compressed="false">https://raw.github.com/kaffepausse71/SKINBASE.PEGASUS/master/addons.xml</info>
+  			<checksum>https://raw.github.com/kaffepausse71/SKINBASE.PEGASUS/master/addons.xml.md5</checksum>
+  			<datadir zip="true">https://raw.github.com/kaffepausse71/SKINBASE.PEGASUS/master/</datadir>
+  		</dir>
+  		<dir>
+  			<info compressed="false">https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml</info>
+  			<checksum>https://raw.githubusercontent.com/Gujal00/smrzips/master/addons.xml.md5</checksum>
+  			<datadir zip="true">https://raw.githubusercontent.com/Gujal00/smrzips/master/zips/</datadir>
+  		</dir>
+  	</extension>
+  	<extension point="xbmc.addon.metadata">
+  		<platform>all</platform>
+  		<description lang="en">Addons by Michaz</description>
+  		<website>https://michaz1988.github.io</website>
+  		<assets>
+  			<icon>icon.png</icon>
+  		</assets> 
+  	</extension>
+  </addon>
+
+  <!-- service.leosystems.bingie.lastshipplayer | Quelle: service.leosystems.bingie.lastshipplayer -->
+  <addon id="service.leosystems.bingie.lastshipplayer"
+         name="LeoSystems Bingie Lastship Player Installer"
+         version="1.0.0"
+         provider-name="LeoSystems">
+  
+      <requires>
+          <import addon="xbmc.python" version="3.0.0"/>
+      </requires>
+  
+      <extension point="xbmc.service" library="service.py" start="startup" />
+  
+      <extension point="xbmc.addon.metadata">
+          <summary lang="de_DE">Installiert und aktiviert den Lastship-Player für TMDB Bingie Helper</summary>
+          <description lang="de_DE">
+              Kopiert LeoPlayer4Lastship.json in den reconfigured_players-Ordner
+              von plugin.video.tmdb.bingie.helper und setzt den Standardplayer
+              für Filme und Episoden automatisch.
+          </description>
+          <platform>all</platform>
+          <language>de</language>
+          <assets>
+              <icon>icon.png</icon>
+          </assets>
+      </extension>
+  </addon>
+
+</addons>
