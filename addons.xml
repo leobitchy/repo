@@ -75,7 +75,7 @@
   <!-- plugin.video.mymovies | Quelle: plugin.video.mymovies -->
   <addon id="plugin.video.mymovies"
          name="MyMovies"
-         version="4.1.4"
+         version="4.1.5"
          provider-name="LeoSystems">
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
