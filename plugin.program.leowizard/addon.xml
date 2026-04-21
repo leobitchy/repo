@@ -1,6 +1,6 @@
 <addon id="plugin.program.leowizard"
        name="LeoWizard"
-       version="3.0.0"
+       version="3.0.1"
        provider-name="LeoSystems">
 
     <requires>
