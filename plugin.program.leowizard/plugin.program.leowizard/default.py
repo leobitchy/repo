@@ -232,7 +232,7 @@ def run_wizard():
     try:
         xbmcgui.Dialog().ok(
             "LeoWizard",
-            "Während der Installation bitte nichts drücken.\n\n"
+            "Während der Installation bitte nichts drücken.\n"
             "Zum Starten jetzt auf OK klicken und anschließend warten."
         )
 
@@ -275,7 +275,7 @@ def run_wizard():
 
         xbmcgui.Dialog().ok(
             "LeoWizard",
-            "Installation abgeschlossen.\n\nKodi wird nach Klick auf OK neu gestartet.\n\nBitte die App danach ca. 10 Sekunden nicht öffnen."
+            "Installation abgeschlossen.\nKodi wird nach Klick auf OK neu gestartet.\nBitte die App danach ca. 10 Sekunden nicht öffnen."
         )
 
         xbmc.sleep(1000)

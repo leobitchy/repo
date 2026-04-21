@@ -136,7 +136,7 @@ def finalize_restore():
 
     xbmcgui.Dialog().ok(
         "LeoWizard",
-        "FERTIG!\n\nDein Kodi ist jetzt komplett eingerichtet.\n\nViel Spaß!"
+        "FERTIG!\nDein Kodi ist jetzt komplett eingerichtet.\nViel Spaß!"
     )
 
 
