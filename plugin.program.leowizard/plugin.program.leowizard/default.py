@@ -47,6 +47,20 @@ def ensure_dir(path):
         os.makedirs(path, exist_ok=True)
 
 
+def wait_with_progress(progress, start_percent, end_percent, heading, message, seconds):
+    """
+    Wartet sichtbar mit Fortschrittsanimation, damit der User nicht denkt Kodi hängt.
+    """
+    steps = max(1, int(seconds * 10))  # 10 Updates pro Sekunde
+    for i in range(steps + 1):
+        percent = start_percent + int((end_percent - start_percent) * i / steps)
+        remaining = max(0, seconds - (i / 10.0))
+        progress.update(percent, heading, f"{message} ({remaining:.1f}s)")
+        if progress.iscanceled():
+            raise Exception("Vorgang abgebrochen")
+        xbmc.sleep(100)
+
+
 def download_file(url, dest_path, progress):
     ensure_dir(os.path.dirname(dest_path))
 
@@ -66,16 +80,15 @@ def download_file(url, dest_path, progress):
 
                     if total > 0:
                         file_percent = int(downloaded * 100 / total)
-                        overall_percent = 15 + int(file_percent * 25 / 100)  # 15-40%
                         mb_done = downloaded / (1024 * 1024)
                         mb_total = total / (1024 * 1024)
                         progress.update(
-                            overall_percent,
+                            file_percent,
                             "Lade Build herunter...",
                             f"{mb_done:.1f} / {mb_total:.1f} MB"
                         )
                     else:
-                        progress.update(20, "Lade Build herunter...")
+                        progress.update(50, "Lade Build herunter...", "Dateigröße unbekannt...")
 
                     if progress.iscanceled():
                         raise Exception("Download abgebrochen")
@@ -89,13 +102,14 @@ def download_file(url, dest_path, progress):
 
 
 def extract_build_zip(zip_path, progress):
-    progress.update(45, "Entpacke Build...")
+    progress.update(5, "Entpacke Build...", "Dateien werden kopiert...")
 
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         members = zip_ref.namelist()
         total = len(members) or 1
+        processed = 0
 
-        for i, member in enumerate(members, start=1):
+        for member in members:
             if member.startswith("addons/"):
                 rel = member.replace("addons/", "", 1)
                 target = os.path.join(KODI_HOME, "addons", rel)
@@ -114,8 +128,9 @@ def extract_build_zip(zip_path, progress):
                 with zip_ref.open(member) as s, open(target, "wb") as t:
                     shutil.copyfileobj(s, t)
 
-            percent = 45 + int(i * 15 / total)  # 45-60%
-            progress.update(percent, "Entpacke Build...")
+            processed += 1
+            percent = 5 + int(processed * 25 / total)  # 5 -> 30
+            progress.update(percent, "Entpacke Build...", f"{processed}/{total} Dateien verarbeitet")
 
             if progress.iscanceled():
                 raise Exception("Entpacken abgebrochen")
@@ -168,9 +183,7 @@ def remove_addon_files(addon_id):
     try:
         if os.path.exists(addon_data_dir):
             shutil.rmtree(addon_data_dir, ignore_errors=True)
-            log(f"Addon-Daten gelöscht: {addon_data_dir}")
-    except Exception as e:
-        log(f"Fehler beim Löschen von {addon_data_dir}: {e}", xbmc.LOGERROR)
+            log(f"Fehler beim Löschen von {addon_data_dir}: {e}", xbmc.LOGERROR)
 
 
 def purge_blocked_addons():
@@ -181,15 +194,26 @@ def purge_blocked_addons():
             remove_addon_files(addon_id)
 
 
-def enable_all_addons():
+def enable_all_addons(progress=None, start_percent=55, end_percent=75):
     result = jsonrpc("Addons.GetAddons", {"enabled": False})
-    for addon in result.get("result", {}).get("addons", []):
+    addons = result.get("result", {}).get("addons", [])
+    total = len(addons) or 1
+
+    for i, addon in enumerate(addons, start=1):
         addonid = addon.get("addonid")
         if addonid:
             jsonrpc("Addons.SetAddonEnabled", {
                 "addonid": addonid,
                 "enabled": True
             })
+
+        if progress:
+            percent = start_percent + int(i * (end_percent - start_percent) / total)
+            progress.update(percent, "Aktiviere Addons...", f"{i}/{total} Addons verarbeitet")
+
+            if progress.iscanceled():
+                raise Exception("Aktivierung abgebrochen")
+
     log("Alle Addons aktiviert.")
 
 
@@ -223,43 +247,73 @@ def mark_restore_pending():
 
 
 def run_wizard():
-    progress = xbmcgui.DialogProgress()
-    progress.create("LeoWizard", "Installation startet...")
+    download_progress = xbmcgui.DialogProgress()
+    install_progress = None
 
     try:
-        progress.update(5, "Prüfe unerwünschte Addons...")
-        purge_blocked_addons()
-
-        progress.update(15, "Bereite Download vor...")
-        if not download_file(BUILD_ZIP_URL, DOWNLOADED_ZIP, progress):
-            progress.close()
+        # PHASE 1: Download
+        download_progress.create("LeoWizard", "Lade Build herunter...")
+        if not download_file(BUILD_ZIP_URL, DOWNLOADED_ZIP, download_progress):
+            download_progress.close()
             xbmcgui.Dialog().ok("Fehler", "Download fehlgeschlagen.")
             return
 
-        extract_build_zip(DOWNLOADED_ZIP, progress)
+        download_progress.update(100, "Download abgeschlossen", "Build wurde heruntergeladen")
+        xbmc.sleep(500)
+        download_progress.close()
 
-        progress.update(65, "Initialisiere Addons...")
+        # PHASE 2: Installation / Vorbereitung Neustart
+        install_progress = xbmcgui.DialogProgress()
+        install_progress.create("LeoWizard", "Installiere Build...", "Bitte nichts anklicken.")
+
+        install_progress.update(0, "Prüfe unerwünschte Addons...", "Bereite Installation vor...")
+        purge_blocked_addons()
+
+        extract_build_zip(DOWNLOADED_ZIP, install_progress)
+
+        install_progress.update(35, "Initialisiere Addons...", "Setze Restore-Status...")
         mark_restore_pending()
+
+        install_progress.update(40, "Aktualisiere lokale Addons...", "Kodi verarbeitet neue Dateien...")
         xbmc.executebuiltin("UpdateLocalAddons")
-        xbmc.sleep(5000)
+        wait_with_progress(
+            install_progress, 40, 55,
+            "Aktualisiere lokale Addons...",
+            "Bitte warten",
+            5
+        )
 
-        progress.update(75, "Aktiviere Addons...")
-        enable_all_addons()
-        xbmc.sleep(2000)
+        enable_all_addons(install_progress, 55, 75)
 
-        progress.update(85, "Deaktiviere Konflikt-Addons...")
+        install_progress.update(80, "Deaktiviere Konflikt-Addons...", "Bereinige inkompatible Addons...")
         disable_blocked_addons_if_present()
-        xbmc.sleep(1000)
+        wait_with_progress(
+            install_progress, 80, 85,
+            "Deaktiviere Konflikt-Addons...",
+            "Übernehme Änderungen",
+            1.5
+        )
 
-        progress.update(92, "Übernehme Quellen...")
+        install_progress.update(88, "Übernehme Quellen...", "sources.xml wird kopiert...")
         copy_sources_xml()
 
-        progress.update(97, "Räume auf...")
+        install_progress.update(93, "Räume auf...", "Temporäre Dateien werden gelöscht...")
         cleanup()
+        wait_with_progress(
+            install_progress, 93, 97,
+            "Räume auf...",
+            "Temporäre Dateien werden entfernt",
+            1.5
+        )
 
-        progress.update(100, "Fertig!")
-        xbmc.sleep(1000)
-        progress.close()
+        wait_with_progress(
+            install_progress, 97, 100,
+            "Vorbereitung Neustart...",
+            "Kodi wird gleich neu gestartet",
+            3
+        )
+
+        install_progress.close()
 
         xbmcgui.Dialog().ok(
             "LeoWizard",
@@ -271,9 +325,15 @@ def run_wizard():
 
     except Exception as e:
         try:
-            progress.close()
+            download_progress.close()
         except Exception:
             pass
+        try:
+            if install_progress:
+                install_progress.close()
+        except Exception:
+            pass
+
         log(f"Wizard Fehler: {e}", xbmc.LOGERROR)
         xbmcgui.Dialog().ok("Fehler", f"Installation fehlgeschlagen:\n{e}")
 
