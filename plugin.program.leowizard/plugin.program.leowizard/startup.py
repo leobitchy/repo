@@ -68,7 +68,7 @@ def set_setting(setting_name, value):
 def wait_for_skin():
     log("Warte auf Skin-Verfügbarkeit...")
 
-    for i in range(30):  # max ~30 Sekunden warten
+    for i in range(30):
         if xbmc.getCondVisibility("System.HasAddon(skin.bingie)"):
             log("Skin ist verfügbar.")
             return True
@@ -88,14 +88,22 @@ def finalize_restore():
         return
 
     log("Finalisierung nach Neustart gestartet.")
-    xbmcgui.Dialog().notification(
-    "LeoWizard",
-    "Bitte nichts klicken...\nSetup wird abgeschlossen",
-    xbmcgui.NOTIFICATION_INFO,
-    10000
-)
 
-    # Kodi erstmal stabil hochfahren lassen
+    # 🔒 User blockieren + Hinweis anzeigen
+    xbmc.executebuiltin('ActivateWindow(busydialognocancel)')
+    xbmc.sleep(1000)
+
+    xbmcgui.Dialog().notification(
+        "LeoWizard",
+        "Setup wird abgeschlossen...\nBitte warten",
+        xbmcgui.NOTIFICATION_INFO,
+        8000
+    )
+
+    xbmc.sleep(9000)
+    xbmc.executebuiltin('Dialog.Close(busydialognocancel)')
+
+    # Kodi stabil hochfahren lassen
     xbmc.sleep(10000)
 
     # Addons neu einlesen
@@ -105,7 +113,7 @@ def finalize_restore():
     # sources.xml wiederherstellen
     safe_copy(SRC_SOURCES, DEST_SOURCES, "sources.xml")
 
-    # Warten bis Skin wirklich verfügbar ist
+    # Warten bis Skin verfügbar
     if not wait_for_skin():
         xbmcgui.Dialog().notification(
             "LeoWizard",
@@ -119,6 +127,7 @@ def finalize_restore():
     set_setting("lookandfeel.skin", "skin.bingie")
     xbmc.sleep(1000)
     xbmc.executebuiltin("SendClick(yesnodialog,11)")
+
     set_setting("locale.language", "resource.language.de_de")
 
     xbmc.sleep(2000)
@@ -129,9 +138,9 @@ def finalize_restore():
     log("Finalisierung abgeschlossen.")
 
     xbmcgui.Dialog().ok(
-    "LeoWizard",
-    "FERTIG!\nDein Kodi ist jetzt komplett eingerichtet.\nViel Spaß!"
-)
+        "LeoWizard",
+        "FERTIG!\n\nDein Kodi ist jetzt komplett eingerichtet.\n\nViel Spaß!"
+    )
 
 
 if __name__ == "__main__":
