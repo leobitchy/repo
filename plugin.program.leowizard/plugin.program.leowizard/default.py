@@ -275,7 +275,7 @@ def run_wizard():
 
         xbmcgui.Dialog().ok(
             "LeoWizard",
-            "Installation abgeschlossen.\nKodi wird nach Klick auf OK neu gestartet.\nBitte die App danach ca. 10 Sekunden nicht öffnen."
+            "Fertig. Klicke auf OK für einen Neustart.\nKodi erst nach 15sek. wieder öffnen."
         )
 
         xbmc.sleep(1000)
