@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.mymovies"
        name="MyMovies"
-       version="4.1.5"
+       version="4.2.1"
        provider-name="LeoSystems">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
@@ -20,7 +20,7 @@
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <summary lang="en_US">MyMovies – Your personal movie collection with categories, favorites, and backup function</summary>
-    <description lang="en_US">MyMovies allows you to import entries from Kodi favorites, organize them into custom categories, and mark your favorite movies as "Great Movies." It offers a context menu to add movies directly from other addons, a search function to find movies in the xShip addon, and a backup feature to save and restore your collection.</description>
+    <description lang="en_US">MyMovies allows you to import entries from Kodi favorites, organize them into custom categories, and mark your favorite movies as "Great Movies." It offers a context menu to add movies directly from other addons, a search function to find movies in the Lastship Reborn addon, and a backup feature to save and restore your collection.</description>
     <language>en</language>
     <license></license>
     <website></website>
