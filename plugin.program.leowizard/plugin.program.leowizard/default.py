@@ -53,13 +53,14 @@ def ensure_dir(path):
         os.makedirs(path, exist_ok=True)
 
 
-def notify(message, ms=2500):
-    xbmcgui.Dialog().notification(
-        "LeoWizard",
-        message,
-        xbmcgui.NOTIFICATION_INFO,
-        ms
-    )
+def show_busy():
+    xbmc.executebuiltin("ActivateWindow(busydialognocancel)")
+    xbmc.sleep(200)
+
+
+def close_busy():
+    xbmc.executebuiltin("Dialog.Close(busydialognocancel)")
+    xbmc.sleep(200)
 
 
 def download_file(url, dest_path):
@@ -83,7 +84,7 @@ def download_file(url, dest_path):
 
 
 def extract_build_zip(zip_path):
-    notify("Entpacke Build...", 3000)
+    log("Entpacke Build...")
 
     with zipfile.ZipFile(zip_path, "r") as zip_ref:
         for member in zip_ref.namelist():
@@ -152,7 +153,7 @@ def remove_addon_files(addon_id):
 
     try:
         if os.path.exists(addon_dir):
-            shutil.rmtree(addon_dir)
+            shutil.rmtree(addon_dir, ignore_errors=True)
             log(f"Addon-Ordner gelöscht: {addon_dir}")
             removed_anything = True
     except Exception as e:
@@ -160,7 +161,7 @@ def remove_addon_files(addon_id):
 
     try:
         if os.path.exists(addon_data_dir):
-            shutil.rmtree(addon_data_dir)
+            shutil.rmtree(addon_data_dir, ignore_errors=True)
             log(f"Addon-Daten gelöscht: {addon_data_dir}")
             removed_anything = True
     except Exception as e:
@@ -170,7 +171,7 @@ def remove_addon_files(addon_id):
 
 
 def purge_blocked_addons():
-    notify("Prüfe unerwünschte Addons...", 2500)
+    log("Prüfe unerwünschte Addons...")
 
     for addon_id in BLOCKED_ADDONS:
         if not addon_exists(addon_id):
@@ -182,7 +183,7 @@ def purge_blocked_addons():
 
 
 def enable_all_addons():
-    notify("Aktiviere alle Addons...", 2500)
+    log("Aktiviere alle Addons...")
 
     result = jsonrpc("Addons.GetAddons", {"enabled": False})
     for addon in result.get("result", {}).get("addons", []):
@@ -217,7 +218,7 @@ def cleanup_packages():
     packages_path = xbmcvfs.translatePath(os.path.join(KODI_HOME, "addons", "packages"))
     try:
         if os.path.exists(packages_path):
-            shutil.rmtree(packages_path)
+            shutil.rmtree(packages_path, ignore_errors=True)
     except Exception as e:
         log(f"Fehler beim Löschen von packages: {e}", xbmc.LOGERROR)
 
@@ -229,23 +230,22 @@ def mark_restore_pending():
 
 def run_wizard():
     try:
-        xbmc.executebuiltin("ActivateWindow(busydialognocancel)")
-        xbmc.sleep(500)
+        show_busy()
 
-        notify("Installiere Build...\nBitte nichts klicken", 4000)
+        log("Installiere Build... Bitte nichts klicken")
 
         purge_blocked_addons()
         xbmc.sleep(1000)
 
-        notify("Lade Build herunter...\nBitte warten", 3000)
+        log("Lade Build herunter...")
         if not download_file(BUILD_ZIP_URL, DOWNLOADED_ZIP):
-            xbmc.executebuiltin("Dialog.Close(busydialognocancel)")
+            close_busy()
             xbmcgui.Dialog().ok("Fehler", "Download fehlgeschlagen.")
             return
 
         extract_build_zip(DOWNLOADED_ZIP)
 
-        notify("Initialisiere Addons...", 2500)
+        log("Initialisiere Addons...")
         mark_restore_pending()
 
         xbmc.executebuiltin("UpdateLocalAddons")
@@ -254,18 +254,18 @@ def run_wizard():
         enable_all_addons()
         xbmc.sleep(2000)
 
-        notify("Deaktiviere Konflikt-Addons...", 2500)
+        log("Deaktiviere Konflikt-Addons...")
         disable_blocked_addons_if_present()
         xbmc.sleep(1000)
 
-        notify("Übernehme Quellen...", 2500)
+        log("Übernehme Quellen...")
         copy_sources_xml()
 
-        notify("Räume auf...", 2000)
+        log("Räume auf...")
         cleanup_downloaded_zip()
         cleanup_packages()
 
-        xbmc.executebuiltin("Dialog.Close(busydialognocancel)")
+        close_busy()
 
         xbmcgui.Dialog().ok(
             "LeoWizard",
@@ -277,7 +277,7 @@ def run_wizard():
 
     except Exception as e:
         try:
-            xbmc.executebuiltin("Dialog.Close(busydialognocancel)")
+            close_busy()
         except Exception:
             pass
         log(f"Fehler im Wizard: {e}", xbmc.LOGERROR)
