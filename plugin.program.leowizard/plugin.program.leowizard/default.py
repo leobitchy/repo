@@ -274,7 +274,7 @@ def run_wizard():
 
     xbmcgui.Dialog().ok(
     "LeoWizard",
-    "Installation abgeschlossen.\n\nKodi wird jetzt neu gestartet.\n\nBitte NICHT sofort neu öffnen!\nWarte ca. 10 Sekunden."
+    "Installation abgeschlossen.\nKodi wird nach klick auf OK neu gestartet.\nBitte die App NICHT sofort starten!\nWarte ca. 10 Sekunden."
 )
     xbmc.sleep(1000)
     xbmc.executebuiltin("RestartApp")
