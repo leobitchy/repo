@@ -31,7 +31,7 @@
   
   </addon>
 
-  <!-- plugin.video.bb_global_lastship_search | Quelle: plugin.video.global_lastship_search -->
+  <!-- plugin.video.bb_global_lastship_search | Quelle: plugin.video.bb_global_lastship_search -->
   <addon id="plugin.video.bb_global_lastship_search"
          name="BitchyBoss Globale Kodi Lastship Suche"
          version="1.0.3"
