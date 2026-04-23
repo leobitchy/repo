@@ -1,10 +1,10 @@
 <addons>
 
-  <!-- plugin.program.leowizard | Quelle: plugin.program.leowizard -->
-  <addon id="plugin.program.leowizard"
-         name="LeoWizard"
+  <!-- plugin.program.bbwizard | Quelle: plugin.program.bbwizard -->
+  <addon id="plugin.program.bbwizard"
+         name="BitchyBoss Wizard"
          version="3.0.1"
-         provider-name="LeoSystems">
+         provider-name="BitchyBoss">
   
       <requires>
           <import addon="xbmc.python" version="3.0.0"/>
@@ -31,11 +31,11 @@
   
   </addon>
 
-  <!-- plugin.video.global_lastship_search | Quelle: plugin.video.global_lastship_search -->
-  <addon id="plugin.video.global_lastship_search"
-         name="Globale Lastship Suche"
+  <!-- plugin.video.bb_global_search | Quelle: plugin.video.global_lastship_search -->
+  <addon id="plugin.video.bb_global_search"
+         name="BitchyBoss Globale Kodi Lastship Suche"
          version="1.0.2"
-         provider-name="LeoSystems">
+         provider-name="BitchyBoss">
   
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
@@ -67,16 +67,17 @@
       <language>de</language>
       <assets>
         <icon>icon.png</icon>
+         <fanart>fanart.jpg</fanart>
       </assets>
     </extension>
   
   </addon>
 
-  <!-- plugin.video.mymovies | Quelle: plugin.video.mymovies -->
-  <addon id="plugin.video.mymovies"
-         name="MyMovies"
+  <!-- plugin.videos.bb_mymovies | Quelle: plugin.videos.bb_mymovies -->
+  <addon id="plugin.videos.bb_mymovies"
+         name="BitchyBoss MyMovies"
          version="4.2.1"
-         provider-name="LeoSystems">
+         provider-name="BitchyBoss">
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -100,6 +101,7 @@
       <website></website>
       <assets>
         <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
       </assets>
     </extension>
   </addon>
@@ -128,6 +130,32 @@
   	</extension>
   </addon>
 
+  <!-- repository.bitchyboss | Quelle: repository.bitchyboss -->
+  <addon id="repository.bitchyboss"
+         name="BitchyBoss Repo"
+         version="3.0.0"
+         provider-name="BitchyBoss">
+  
+    <extension point="xbmc.addon.repository">
+      <dir>
+        <info compressed="false">https://raw.githubusercontent.com/bitchyboss/repo/main/addons.xml</info>
+  <checksum>https://raw.githubusercontent.com/bitchyboss/repo/main/addons.xml.md5</checksum>
+  <datadir zip="true">https://raw.githubusercontent.com/bitchyboss/repo/main/</datadir>
+      </dir>
+    </extension>
+  
+    <extension point="xbmc.addon.metadata">
+      <summary>BitchyBoss Kodi Repository</summary>
+      <description>BitchyBoss Addons erleichtern dir Film &amp; Seriensuche in Kodi in Verbindung mit dem Lasthip Reborn Addon</description>
+      <platform>all</platform>
+      <assets>
+        <icon>icon.png</icon>
+        <fanart>fanart.jpg</fanart>
+      </assets>
+    </extension>
+  
+  </addon>
+
   <!-- repository.kodi.media | Quelle: repository.kodi.media -->
   <addon id="repository.kodi.media" name="Kodi Media Repository" version="1.0.0" provider-name="mr-evil1">
       <extension point="xbmc.addon.repository">
@@ -146,32 +174,6 @@
               <fanart>kodi-media.jpg</fanart>
           </assets>
       </extension>
-  </addon>
-
-  <!-- repository.leosystems | Quelle: repository.leosystems -->
-  <addon id="repository.leosystems"
-         name="LeoSystems Repo"
-         version="3.0.0"
-         provider-name="LeoSystems">
-  
-    <extension point="xbmc.addon.repository">
-      <dir>
-        <info compressed="false">https://raw.githubusercontent.com/leobitchy/repo/main/addons.xml</info>
-  <checksum>https://raw.githubusercontent.com/leobitchy/repo/main/addons.xml.md5</checksum>
-  <datadir zip="true">https://raw.githubusercontent.com/leobitchy/repo/main/</datadir>
-      </dir>
-    </extension>
-  
-    <extension point="xbmc.addon.metadata">
-      <summary>LeoSystems Kodi Repository</summary>
-      <description>LeoSystems Addons erleichtern dir Film &amp; Seriensuche in Kodi</description>
-      <platform>all</platform>
-      <assets>
-        <icon>icon.png</icon>
-        <fanart>fanart.jpg</fanart>
-      </assets>
-    </extension>
-  
   </addon>
 
   <!-- repository.michaz | Quelle: repository.michaz -->
@@ -218,11 +220,11 @@
   	</extension>
   </addon>
 
-  <!-- service.leosystems.bingie.lastshipplayer | Quelle: service.leosystems.bingie.lastshipplayer -->
-  <addon id="service.leosystems.bingie.lastshipplayer"
-         name="LeoSystems Bingie Lastship Player Installer"
+  <!-- service.bb.bingie.lastshipplayer | Quelle: service.bb.bingie.lastshipplayer -->
+  <addon id="service.bb.bingie.lastshipplayer"
+         name="BitchyBoss Bingie Lastship Player Installer"
          version="1.0.0"
-         provider-name="LeoSystems">
+         provider-name="BitchyBoss">
   
       <requires>
           <import addon="xbmc.python" version="3.0.0"/>
@@ -233,7 +235,7 @@
       <extension point="xbmc.addon.metadata">
           <summary lang="de_DE">Installiert und aktiviert den Lastship-Player für TMDB Bingie Helper</summary>
           <description lang="de_DE">
-              Kopiert LeoPlayer4Lastship.json in den reconfigured_players-Ordner
+              Kopiert BBPlayer4Lastship.json in den reconfigured_players-Ordner
               von plugin.video.tmdb.bingie.helper und setzt den Standardplayer
               für Filme und Episoden automatisch.
           </description>
@@ -241,6 +243,7 @@
           <language>de</language>
           <assets>
               <icon>icon.png</icon>
+              <fanart>fanart.jpg</fanart>
           </assets>
       </extension>
   </addon>

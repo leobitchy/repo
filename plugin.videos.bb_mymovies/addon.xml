@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.mymovies"
-       name="MyMovies"
+<addon id="plugin.videos.bb_mymovies"
+       name="BitchyBoss MyMovies"
        version="4.2.1"
-       provider-name="LeoSystems">
+       provider-name="BitchyBoss">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
@@ -26,6 +26,7 @@
     <website></website>
     <assets>
       <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
 </addon>

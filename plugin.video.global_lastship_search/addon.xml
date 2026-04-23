@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.global_lastship_search"
-       name="Globale Lastship Suche"
+<addon id="plugin.video.bb_global_search"
+       name="BitchyBoss Globale Kodi Lastship Suche"
        version="1.0.2"
-       provider-name="LeoSystems">
+       provider-name="BitchyBoss">
 
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
@@ -34,6 +34,7 @@
     <language>de</language>
     <assets>
       <icon>icon.png</icon>
+       <fanart>fanart.jpg</fanart>
     </assets>
   </extension>
 

@@ -1,7 +1,7 @@
-<addon id="plugin.program.leowizard"
-       name="LeoWizard"
+<addon id="plugin.program.bbwizard"
+       name="BitchyBoss Wizard"
        version="3.0.1"
-       provider-name="LeoSystems">
+       provider-name="BitchyBoss">
 
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>

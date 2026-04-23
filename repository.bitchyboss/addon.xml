@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.bitchyboss"
+       name="BitchyBoss Repo"
+       version="3.0.0"
+       provider-name="BitchyBoss">
+
+  <extension point="xbmc.addon.repository">
+    <dir>
+      <info compressed="false">https://raw.githubusercontent.com/bitchyboss/repo/main/addons.xml</info>
+<checksum>https://raw.githubusercontent.com/bitchyboss/repo/main/addons.xml.md5</checksum>
+<datadir zip="true">https://raw.githubusercontent.com/bitchyboss/repo/main/</datadir>
+    </dir>
+  </extension>
+
+  <extension point="xbmc.addon.metadata">
+    <summary>BitchyBoss Kodi Repository</summary>
+    <description>BitchyBoss Addons erleichtern dir Film &amp; Seriensuche in Kodi in Verbindung mit dem Lasthip Reborn Addon</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+      <fanart>fanart.jpg</fanart>
+    </assets>
+  </extension>
+
+</addon>
