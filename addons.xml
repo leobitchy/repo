@@ -3,7 +3,7 @@
   <!-- plugin.program.bbwizard | Quelle: plugin.program.bbwizard -->
   <addon id="plugin.program.bbwizard"
          name="BitchyBoss Wizard"
-         version="3.0.1"
+         version="3.0.5"
          provider-name="BitchyBoss">
   
       <requires>
