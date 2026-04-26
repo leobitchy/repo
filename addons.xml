@@ -73,7 +73,7 @@
   <!-- plugin.videos.bb_mymovies | Quelle: plugin.videos.bb_mymovies -->
   <addon id="plugin.videos.bb_mymovies"
          name="BitchyBoss MyMovies"
-         version="4.2.1"
+         version="4.2.2"
          provider-name="BitchyBoss">
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
