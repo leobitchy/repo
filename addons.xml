@@ -29,10 +29,10 @@
   
   </addon>
 
-  <!-- plugin.video.bb_global_lastship_search | Quelle: plugin.video.bb_global_lastship_search -->
-  <addon id="plugin.video.bb_global_lastship_search"
-         name="BitchyBoss Globale Kodi Lastship Suche"
-         version="1.0.3"
+  <!-- plugin.video.bb_global_search | Quelle: plugin.video.bb_global_search -->
+  <addon id="plugin.video.bb_global_search"
+         name="BitchyBoss Globale Kodi Suche"
+         version="1.0.9"
          provider-name="BitchyBoss">
   
     <requires>
@@ -42,14 +42,14 @@
     <extension point="kodi.context.item">
       <menu id="kodi.core.main">
   
-        <item library="context_movie.py">
-          <label>Film suchen</label>
-          <visible>!IsEmpty(ListItem.Title)</visible>
+        <item library="context_lastship.py">
+          <label>Film / Serie suchen in LastShip</label>
+          <visible>!IsEmpty(ListItem.Title) | !IsEmpty(ListItem.Label)</visible>
         </item>
   
-        <item library="context_tvshow.py">
-          <label>Serie suchen</label>
-          <visible>!IsEmpty(ListItem.Title)</visible>
+        <item library="context_xstream.py">
+          <label>Film / Serie suchen in xStream</label>
+          <visible>!IsEmpty(ListItem.Title) | !IsEmpty(ListItem.Label)</visible>
         </item>
   
       </menu>
@@ -57,14 +57,12 @@
   
     <extension point="xbmc.addon.metadata">
       <platform>all</platform>
-      <summary lang="de_DE">Globale Lastship Reborn Suche für Filme und Serien</summary>
-      <description lang="de_DE">Fügt zwei globale Kontextmenüeinträge hinzu, um den ausgewählten Titel in Lastship Reborn zu suchen:
-        „Film suchen“ oder „Serie suchen“.
-      </description>
+      <summary lang="de_DE">Globale LastShip und xStream Suche</summary>
+      <description lang="de_DE">Fügt globale Kontextmenüeinträge hinzu, um ausgewählte Titel in LastShip Reborn oder xStream zu suchen.</description>
       <language>de</language>
       <assets>
         <icon>icon.png</icon>
-         <fanart>fanart.jpg</fanart>
+        <fanart>fanart.jpg</fanart>
       </assets>
     </extension>
   
@@ -73,7 +71,7 @@
   <!-- plugin.videos.bb_mymovies | Quelle: plugin.videos.bb_mymovies -->
   <addon id="plugin.videos.bb_mymovies"
          name="BitchyBoss MyMovies"
-         version="4.2.2"
+         version="4.2.5"
          provider-name="BitchyBoss">
     <requires>
       <import addon="xbmc.python" version="3.0.0"/>
